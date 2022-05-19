@@ -16,8 +16,13 @@ limitations under the License.
 package main
 
 import (
-	"github.com/matcharr/go-fiber-crm-basic/database"
+	"fmt"
+
+	"github.com/gitpod/mycli/database"
+	"github.com/gitpod/mycli/lead"
 	"github.com/gofiber/fiber"
+	"github.com/jinzhu/gorm"
+	"github.com/matcharr/go-fiber-crm-basic/database"
 )
 
 func setupRoutes(app *fiber.App) {
@@ -28,12 +33,21 @@ func setupRoutes(app *fiber.App) {
 }
 
 func initDatabase() {
-
+	var err error
+	database.DBConn, err = gorm.Open("sqlite3", "leads.db")
+	if err != nil {
+		panic("fail to connect database")
+	}
+	fmt.Printf("Connection opened to database")
+	database.DBConn.AutoMigrate(&lead.Lead{})
+	fmt.Println(("Database Migrated"))
 }
 
 func main() {
 	app := fiber.New()
+	initDatabase()
 	setupRoutes(app)
 	app.Listen(3000)
+	defer database.DBConn.Close()
 
 }
