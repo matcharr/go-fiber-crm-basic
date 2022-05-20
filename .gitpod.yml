@@ -1,7 +1,9 @@
-
+image:
+  file: .gitpod.dockerfile
 tasks:
   - init: |
       go get github.com/spf13/cobra/cobra
+      go mod tidy
       go build
     command: |
       ./mycli --help

@@ -1,4 +1,4 @@
-module github.com/gitpod/mycli
+module github.com/matcharr/go-fiber-crm-basic
 
 go 1.16
 
