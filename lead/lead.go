@@ -30,6 +30,7 @@ func GetLead(c *fiber.Ctx) {
 	c.JSON(lead)
 
 }
+
 func NewLead(c *fiber.Ctx) {
 	db := database.DBConn
 	lead := new(Lead)
@@ -40,6 +41,7 @@ func NewLead(c *fiber.Ctx) {
 	db.Create(&lead)
 	c.JSON(lead)
 }
+
 func DeleteLead(c *fiber.Ctx) {
 	id := c.Params("id")
 	db := database.DBConn
