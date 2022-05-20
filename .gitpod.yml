@@ -1,12 +1,14 @@
-image:
-  file: .gitpod.dockerfile
 tasks:
+  - init: docker pull keinos/sqlite3:latest
+    command: docker run --rm -it -v "$(pwd):/workspace" -w /workspace keinos/sqlite3
+  
   - init: |
       go get github.com/spf13/cobra/cobra
       go mod tidy
       go build
     command: |
       ./mycli --help
+
 vscode:
   extensions:
     - golang.go
